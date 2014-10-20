@@ -26,6 +26,5 @@ class galaxy_roles_profiles::profile::common{
   if $galaxy::universe::wk_config == true  {
     include galaxy::job_conf
   }
-  include galaxy::common_startup
   include galaxy::manage_tools
 }
