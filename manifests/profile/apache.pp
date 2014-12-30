@@ -27,10 +27,14 @@ class galaxy_roles_profiles::profile::apache(
   include apache::mod::proxy
   include apache::mod::proxy_balancer
   include apache::mod::rewrite
+  include apache::mod::xsendfile
   if $operatingsystem == Ubuntu and $operatingsystemrelease == 14.04{
   apache::mod { 'slotmem_shm':}
   apache::mod { 'lbmethod_byrequests':}
   }
+
+  $sendfile_config = "XSendFile On\nXSendFilePath ${galaxy::params::app_directory}/database/files"
+
   if $galaxy::universe::wk_config{
     include galaxy_roles_profiles::balancer_config
     apache::vhost{ 'galaxy':
@@ -48,7 +52,8 @@ class galaxy_roles_profiles::profile::apache(
                             '^(.*) balancer://galaxy$1 [P]',
                           ]
        },
-      ]
+      ],
+      custom_fragment => $sendfile_config,
     }
   }
   else{
@@ -61,7 +66,8 @@ class galaxy_roles_profiles::profile::apache(
           comment      => 'Rules for Galaxy in oncecore mode',
           rewrite_rule => '^(.*) http://localhost:8080$1 [P]',
         },
-      ]
+      ],
+      custom_fragment => $sendfile_config,
     }
   }
 }
