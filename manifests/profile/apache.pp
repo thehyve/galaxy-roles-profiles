@@ -28,7 +28,7 @@ class galaxy_roles_profiles::profile::apache(
   include apache::mod::proxy_balancer
   include apache::mod::rewrite
   include apache::mod::xsendfile
-  if $operatingsystem == Ubuntu and $operatingsystemrelease == 14.04{
+  if $operatingsystem == 'Ubuntu' and $operatingsystemrelease == '14.04' {
   apache::mod { 'slotmem_shm':}
   apache::mod { 'lbmethod_byrequests':}
   }

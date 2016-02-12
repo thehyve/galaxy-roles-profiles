@@ -1,23 +1,26 @@
-# == Class galaxy-roles-profiles::role::galaxy-sqlite
+# == Class galaxy_roles_profiles::role::galaxy-apache-sqlite
 #
-# This role create one instance of galaxy with sqlite
+# This role create one instance Galaxy runs with apache and SQLite.
 #
-# === Example
+# ==== Examples
 #
-# include galaxy-roles-profiles::role::galaxy-sqlite
+# include galaxy_roles_profiles::role::galaxy-apache-sqlite
 #
 # === Authors
 #
 # O. Inizan <oinizan@versailles.inra.fr>
 # S. Bridel <sbridel@versailles.inra.fr>
-# M. Loaec <mloaec@versailles.inra.fr>
+#
 # === Copyright
 #
 # Copyright 2014, unless otherwise noted.
-class galaxy_roles_profiles::role::galaxy-sqlite{
+#
+class galaxy_roles_profiles::role::galaxy_apache_sqlite{
   class { 'galaxy_roles_profiles::profile::common':
   }->
   class { 'galaxy_roles_profiles::profile::sqlite':
+  }->
+  class { 'galaxy_roles_profiles::profile::apache':
   }->
   class { 'galaxy_roles_profiles::profile::galaxy':
   }
